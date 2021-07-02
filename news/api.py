@@ -11,7 +11,9 @@ router = Router(tags=["News"], auth=AuthBearer())
 # amana bu funcsiya swaggerda korinmaydida,
 # sababi include_in_schema False da ))
 @router.get(
-    "/", operation_id="vaabsheboshqanarsa", deprecated=True, include_in_schema=False
+    "/", operation_id="vaabsheboshqanarsa",
+    deprecated=True,
+    include_in_schema=False
 )
 def list_of_news(request):
     return [{"id": e.id, "title": e.title} for e in New.objects.all()]
@@ -40,7 +42,11 @@ create_new_description = """
     """
 
 
-@router.post("/create/", response=NewsSchema, description=create_new_description)
+@router.post(
+    "/create/",
+    response=NewsSchema,
+    description=create_new_description
+    )
 def create_new(request, title: str, details: str):
     new = New.objects.create(title=title, details=details)
     return new
